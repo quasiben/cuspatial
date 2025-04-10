@@ -134,21 +134,11 @@ def make_nad83_state_plane_ca3_projection(str dir = "FORWARD"):
     cdef direction d = direction_string_to_enum(dir)
     
     # Create a custom projection for NAD83 State Plane California Zone 3
-    cdef projection[vec_2d[float]]* proj_32 = new projection[vec_2d[float]](
-        d,
-        NAD83_STATE_PLANE_CA3_FALSE_EASTING,
-        NAD83_STATE_PLANE_CA3_FALSE_NORTHING,
-        NAD83_STATE_PLANE_CA3_CENTRAL_MERIDIAN,
-        NAD83_STATE_PLANE_CA3_SCALE_FACTOR,
-        NAD83_STATE_PLANE_CA3_LATITUDE_OF_ORIGIN)
+    cdef string crs_from = <string> "EPSG:4326".encode('utf-8')
+    cdef string crs_to = <string> "EPSG:2227".encode('utf-8')
     
-    cdef projection[vec_2d[double]]* proj_64 = new projection[vec_2d[double]](
-        d,
-        NAD83_STATE_PLANE_CA3_FALSE_EASTING,
-        NAD83_STATE_PLANE_CA3_FALSE_NORTHING,
-        NAD83_STATE_PLANE_CA3_CENTRAL_MERIDIAN,
-        NAD83_STATE_PLANE_CA3_SCALE_FACTOR,
-        NAD83_STATE_PLANE_CA3_LATITUDE_OF_ORIGIN)
+    cdef projection[vec_2d[float]]* proj_32 = make_projection[float](crs_from, crs_to)
+    cdef projection[vec_2d[double]]* proj_64 = make_projection[double](crs_from, crs_to)
     
     cdef Transformer transformer = Transformer.__new__(Transformer)
     transformer.proj_32 = proj_32
