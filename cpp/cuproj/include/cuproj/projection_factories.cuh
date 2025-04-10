@@ -194,6 +194,18 @@ cuproj::projection<Coordinate>* make_projection(int src_epsg, int const& dst_eps
   return make_projection<Coordinate>(detail::epsg_code(src_epsg), detail::epsg_code(dst_epsg));
 }
 
+template <typename Location>
+__host__ __device__ projection<Location> make_nad83_state_plane_ca3_projection(direction dir)
+{
+    return projection<Location>(
+        dir,
+        NAD83_STATE_PLANE_CA3_FALSE_EASTING,
+        NAD83_STATE_PLANE_CA3_FALSE_NORTHING,
+        NAD83_STATE_PLANE_CA3_CENTRAL_MERIDIAN,
+        NAD83_STATE_PLANE_CA3_SCALE_FACTOR,
+        NAD83_STATE_PLANE_CA3_LATITUDE_OF_ORIGIN);
+}
+
 /**
  * @} // end of doxygen group
  */

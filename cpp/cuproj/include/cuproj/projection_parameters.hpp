@@ -73,6 +73,13 @@ struct projection_parameters {
   tmerc_params tmerc_params_{};
 };
 
+// NAD83 State Plane California Zone 3 (EPSG:2227)
+constexpr double NAD83_STATE_PLANE_CA3_FALSE_EASTING = 2000000.0;
+constexpr double NAD83_STATE_PLANE_CA3_FALSE_NORTHING = 0.0;
+constexpr double NAD83_STATE_PLANE_CA3_CENTRAL_MERIDIAN = -120.5;
+constexpr double NAD83_STATE_PLANE_CA3_SCALE_FACTOR = 0.9996;
+constexpr double NAD83_STATE_PLANE_CA3_LATITUDE_OF_ORIGIN = 0.0;
+
 /**
  * @} // end of doxygen group
  */
