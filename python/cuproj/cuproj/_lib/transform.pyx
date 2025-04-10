@@ -117,7 +117,7 @@ NAD83_STATE_PLANE_CA3_CENTRAL_MERIDIAN = -120.5
 NAD83_STATE_PLANE_CA3_SCALE_FACTOR = 0.9996
 NAD83_STATE_PLANE_CA3_LATITUDE_OF_ORIGIN = 0.0
 
-def make_nad83_state_plane_ca3_projection(direction dir = "FORWARD"):
+def make_nad83_state_plane_ca3_projection(str dir = "FORWARD"):
     """Create a NAD83 State Plane California Zone 3 projection.
 
     Parameters
@@ -132,6 +132,8 @@ def make_nad83_state_plane_ca3_projection(direction dir = "FORWARD"):
         A transformer object for NAD83 State Plane California Zone 3 transformations.
     """
     cdef direction d = direction_string_to_enum(dir)
+    
+    # Create a custom projection for NAD83 State Plane California Zone 3
     cdef projection[vec_2d[float]]* proj_32 = new projection[vec_2d[float]](
         d,
         NAD83_STATE_PLANE_CA3_FALSE_EASTING,
@@ -148,4 +150,7 @@ def make_nad83_state_plane_ca3_projection(direction dir = "FORWARD"):
         NAD83_STATE_PLANE_CA3_SCALE_FACTOR,
         NAD83_STATE_PLANE_CA3_LATITUDE_OF_ORIGIN)
     
-    return Transformer(proj_32, proj_64)
+    cdef Transformer transformer = Transformer.__new__(Transformer)
+    transformer.proj_32 = proj_32
+    transformer.proj_64 = proj_64
+    return transformer
